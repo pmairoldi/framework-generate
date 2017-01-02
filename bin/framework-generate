@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'framework-generate'
+
+puts "Hello World!"
