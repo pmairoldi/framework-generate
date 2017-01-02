@@ -2,4 +2,42 @@
 
 require 'framework-generate'
 
-puts "Hello World!"
+macos = new FrameworkGenerate::Platform(:macos, '10.11')
+ios = new FrameworkGenerate::Platform(:ios, '8.0')
+tvos = new FrameworkGenerate::Platform(:tvos, '9.0')
+watchos = new FrameworkGenerate::Platform(:watchos, '2.0')
+
+language = new FrameworkGenerate::Language(:swift, '3.0')
+
+moya = FrameworkGenerate::Target.new do |target|
+  target.name = 'Moya'
+  target.info_plist = 'Supporting Files/Info.plist'
+  target.bundle_id = 'com.cocoapods.Moya'
+  target.header = 'Supporting Files/Moya.h'
+  target.include_files = ['Source/**/*.*']
+  target.exclude_files = ['Source/ReactiveSwift/**/*.*', 'Source/RxSwift/**/*.*']
+end
+
+reactive_moya = FrameworkGenerate::Target.new do |target|
+  target.name = 'ReactiveMoya'
+  target.info_plist = 'Supporting Files/Info.plist'
+  target.bundle_id = 'com.cocoapods.ReactiveMoya'
+  target.header = 'Supporting Files/ReactiveMoya.h'
+  target.include_files = ['Source/ReactiveSwift/**/*.*']
+  target.exclude_files = []
+  target.dependencies = ['Moya.framework']
+end
+
+rx_moya = FrameworkGenerate::Target.new do |target|
+  target.name = 'RxMoya'
+  target.info_plist = 'Supporting Files/Info.plist'
+  target.bundle_id = 'com.cocoapods.RxMoya'
+  target.header = 'Supporting Files/RxMoya.h'
+  target.include_files = ['Source/RxSwift/**/*.*']
+  target.exclude_files = []
+  target.dependencies = ['Moya.framework']
+end
+
+framework = new FrameworkGenerate::Framwwork('Moya', [macos, ios, tvos, watchos], language, [moya, reactive_moya, rx_moya])
+
+puts FrameworkGenerate::Runner.generate(framework)

@@ -11,8 +11,12 @@ Gem::Specification.new do |s|
   s.email       = ['pierremarcairoldi@gmail.com']
   s.homepage    = 'https:/pierremarcairoldi.com'
   s.license     = 'MIT'
+
+  s.required_ruby_version = '>= 2.0.0'
+
   s.files         = %w(README.md LICENSE) + Dir['lib/**/*.rb']
   s.executables   = %w(framework-generate)
   s.require_paths = %w(lib)
-  s.required_ruby_version = '>= 2.0.0'
+
+  s.add_dependency 'xcodeproj', '>= 1.4.0', '< 2.0.0'
 end
