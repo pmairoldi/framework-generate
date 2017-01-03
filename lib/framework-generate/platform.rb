@@ -1,12 +1,17 @@
 module FrameworkGenerate
   class Platform
-
     attr_accessor :type, :minimum_version, :search_paths
 
-    def initialize(type, minimum_version, search_paths = nil)
+    def initialize(type = nil, minimum_version = nil, search_paths = nil)
       @type = type
       @minimum_version = minimum_version
-      @search_paths = search_paths.nil ? default_search_paths(type) : search_paths
+      @search_paths = search_paths == nil ? default_search_paths(type) : search_paths
+
+      yield(self) if block_given?
+    end
+
+    def to_s
+      "Platform<#{type}, #{minimum_version}>"
     end
 
     def platform_values(type)

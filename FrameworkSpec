@@ -1,0 +1,41 @@
+macos = macos '10.11'
+ios = ios '8.0'
+tvos = tvos '9.0'
+watchos = watchos '2.0'
+
+language = swift '3.0'
+
+moya = target do |target|
+  target.name = 'Moya'
+  target.info_plist = 'Supporting Files/Info.plist'
+  target.bundle_id = 'com.cocoapods.Moya'
+  target.header = 'Supporting Files/Moya.h'
+  target.include_files = ['Source/**/*.*']
+  target.exclude_files = ['Source/ReactiveSwift/**/*.*', 'Source/RxSwift/**/*.*']
+end
+
+
+reactive_moya = target do |target|
+  target.name = 'ReactiveMoya'
+  target.info_plist = 'Supporting Files/Info.plist'
+  target.bundle_id = 'com.cocoapods.ReactiveMoya'
+  target.header = 'Supporting Files/ReactiveMoya.h'
+  target.include_files = ['Source/ReactiveSwift/**/*.*']
+  target.exclude_files = []
+  target.dependencies = ['Moya.framework']
+end
+
+rx_moya = target do |target|
+  target.name = 'RxMoya'
+  target.info_plist = 'Supporting Files/Info.plist'
+  target.bundle_id = 'com.cocoapods.RxMoya'
+  target.header = 'Supporting Files/RxMoya.h'
+  target.include_files = ['Source/RxSwift/**/*.*']
+  target.exclude_files = []
+  target.dependencies = ['Moya.framework']
+end
+
+project.name = 'Moya'
+project.platforms = [macos, ios, tvos, watchos]
+project.language = language
+project.targets = [moya, reactive_moya, rx_moya]
