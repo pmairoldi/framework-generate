@@ -6,48 +6,48 @@
 	<dict>
 		<key>Moya.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
+			<key>isShown</key>
+			<true/>
 		</dict>
 		<key>MoyaTests.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<true/>
 		</dict>
 		<key>ReactiveMoya.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<true/>
 		</dict>
 		<key>RxMoya.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4A5CF1A5EEA0F2BD5713D953</key>
+		<key>2CBA0E4FC32C5178AB4CDAFF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A6346BCB26C1F2241BAF1D4</key>
+		<key>392C8EAA85093EA84E687B8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D3EA2FC658E00D74ECC0099</key>
+		<key>7A43779946A55D45F99AFEF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D308A7473B8FEE525DCD1CDF</key>
+		<key>83AA3DA156ACB9AC6FD50AB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E356EBECF94810690BB142DF</key>
+		<key>8628B6065A0E5D84709B6139</key>
 		<dict>
 			<key>primary</key>
 			<true/>

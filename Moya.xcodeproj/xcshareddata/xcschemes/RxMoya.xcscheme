@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D3EA2FC658E00D74ECC0099"
+               BlueprintIdentifier = "392C8EAA85093EA84E687B8E"
                BuildableName = "RxMoya.framework"
                BlueprintName = "RxMoya"
                ReferencedContainer = "container:Moya.xcodeproj">
@@ -32,22 +32,13 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E356EBECF94810690BB142DF"
+               BlueprintIdentifier = "2CBA0E4FC32C5178AB4CDAFF"
                BuildableName = "RxMoyaTests.xctest"
                BlueprintName = "RxMoyaTests"
                ReferencedContainer = "container:Moya.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D3EA2FC658E00D74ECC0099"
-            BuildableName = "RxMoya.framework"
-            BlueprintName = "RxMoya"
-            ReferencedContainer = "container:Moya.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,7 +55,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D3EA2FC658E00D74ECC0099"
+            BlueprintIdentifier = "392C8EAA85093EA84E687B8E"
             BuildableName = "RxMoya.framework"
             BlueprintName = "RxMoya"
             ReferencedContainer = "container:Moya.xcodeproj">
@@ -79,15 +70,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D3EA2FC658E00D74ECC0099"
-            BuildableName = "RxMoya.framework"
-            BlueprintName = "RxMoya"
-            ReferencedContainer = "container:Moya.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

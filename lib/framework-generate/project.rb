@@ -95,34 +95,41 @@ module FrameworkGenerate
       settings
     end
 
-
-    def share_schemes(project)
-      user_scheme_dir = Xcodeproj::XCScheme.user_data_dir(project.path)
-
-      Dir[File.join(user_scheme_dir, '*.xcscheme')].map do |scheme_path|
-
-        scheme_extension = File.extname scheme_path
-        scheme_name = File.basename scheme_path, scheme_extension
-
-        Xcodeproj::XCScheme.share_scheme(project.path, scheme_name)
-      end
-    end
-
     def generate
 
       project = Xcodeproj::Project.new(project_path)
+
+      schemes_dir = Xcodeproj::XCScheme.user_data_dir(project.path)
+      FileUtils.rm_rf(schemes_dir)
+      FileUtils.mkdir_p(schemes_dir)
+
+      xcschememanagement = {}
+      xcschememanagement['SchemeUserState'] = {}
+      xcschememanagement['SuppressBuildableAutocreation'] = {}
 
       project.build_configurations.each do |configuration|
         general_build_settings(configuration.build_settings)
       end
 
       @targets.each do |target|
+
+        scheme = Xcodeproj::XCScheme.new
+
         created_target = target.create(project, language)
+
+        scheme.add_build_target(created_target)
 
         if target.test_target != nil
           created_test_target = target.test_target.create(project, language)
           created_test_target.add_dependency(created_target)
+
+          scheme.add_test_target(created_test_target)
         end
+
+        scheme.save_as(project.path, target.name, true)
+        xcschememanagement['SchemeUserState']["#{target.name}.xcscheme"] = {}
+        xcschememanagement['SchemeUserState']["#{target.name}.xcscheme"]['isShown'] = true
+
       end
 
       project.native_targets.each do |target|
@@ -132,7 +139,9 @@ module FrameworkGenerate
         end
       end
 
-      share_schemes(project)
+      xcschememanagement_path = schemes_dir + 'xcschememanagement.plist'
+      Xcodeproj::Plist.write_to_path(xcschememanagement, xcschememanagement_path)
+
       project.save
 
       puts "Successfully generated #{project_path}"
