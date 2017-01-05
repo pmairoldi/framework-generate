@@ -33,7 +33,7 @@ module FrameworkGenerate
 
     def find_group(project, path)
       folder_path = File.dirname(path)
-      group = project.main_group.find_subpath(folder_path, true)
+      project.main_group.find_subpath(folder_path, true)
     end
 
     def add_framework_header(project, target)
@@ -56,6 +56,7 @@ module FrameworkGenerate
 
     def add_supporting_files(project, target)
       add_info_plist(project)
+      return if target.test_target_type?
       add_framework_header(project, target)
     end
 
@@ -95,12 +96,40 @@ module FrameworkGenerate
     def add_dependencies(project, target)
       return unless @dependencies != nil
 
-      frameworks = @dependencies.map do |name|
+      frameworks = @dependencies.reject do |name|
+        !project.products.any? { |x| x.path == name }
+      end
+
+      frameworks = frameworks.map do |name|
         project.products.find { |x| x.path == name }
       end
 
       frameworks.each do |path|
         target.frameworks_build_phase.add_file_reference(path, true)
+      end
+    end
+
+    def copy_carthage_frameworks(project, build_phase)
+      script_file_path = File.join(File.dirname(__FILE__), 'copy-carthage-frameworks.sh')
+
+      script_file = File.open(script_file_path)
+
+      build_phase.shell_script = script_file.read
+
+      script_file.close
+
+      add_framework_to_copy_phase(project, build_phase)
+    end
+
+    def add_framework_to_copy_phase(project, build_phase)
+      return unless @dependencies != nil
+
+      frameworks = @dependencies.reject do |name|
+        project.products.any? { |x| x.path == name }
+      end
+
+      frameworks.each do |path|
+        build_phase.input_paths << path
       end
     end
 
@@ -129,10 +158,17 @@ module FrameworkGenerate
 
       # Build phases
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXSourcesBuildPhase)
+      target.build_phases << project.new(Xcodeproj::Project::Object::PBXResourcesBuildPhase)
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXFrameworksBuildPhase)
 
       # Dependencies
       add_dependencies(project, target)
+
+      # Copy frameworks to test target
+      if target.test_target_type?
+        build_phase = target.new_shell_script_build_phase('Copy Carthage Frameworks')
+        copy_carthage_frameworks(project, build_phase)
+      end
 
       target
     end

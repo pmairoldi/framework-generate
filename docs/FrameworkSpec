@@ -31,7 +31,7 @@ rx_moya_tests = target do |target|
   target.header = 'Supporting Files/RxMoyaTests.h'
   target.include_files = ['Source/**/*.*']
   target.exclude_files = ['Source/ReactiveSwift/**/*.*', 'Source/RxSwift/**/*.*']
-  target.dependencies = ['RxMoya.framework']
+  target.dependencies = ['RxMoya.framework', 'Test.framework']
   target.type = :unit_test_bundle
 end
 
@@ -53,7 +53,7 @@ moya_tests = target do |target|
   target.header = 'Supporting Files/MoyaTests.h'
   target.include_files = ['Source/**/*.*']
   target.exclude_files = ['Source/ReactiveSwift/**/*.*', 'Source/RxSwift/**/*.*']
-  target.dependencies = ['Moya.framework']
+  target.dependencies = ['Moya.framework', 'Test.framework']
   target.type = :unit_test_bundle
 end
 
