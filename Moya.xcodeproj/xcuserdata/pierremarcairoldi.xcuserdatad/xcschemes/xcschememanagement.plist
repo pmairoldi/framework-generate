@@ -2,57 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SchemeUserState</key>
-	<dict>
-		<key>Moya.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-		</dict>
-		<key>MoyaTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-		</dict>
-		<key>ReactiveMoya.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-		</dict>
-		<key>RxMoya.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-		</dict>
-		<key>RxMoyaTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-		</dict>
-	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>08E7880668B9F398B23D1823</key>
+		<key>2A4492E831F4FF77A32FE39F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>24E41E7C15941534B850BE78</key>
+		<key>4EA37DF537AF1F956F667431</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3B851B8057B0BC4D2DCFCE38</key>
+		<key>90FFFFCDC33FD043A2D2E0DB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BBE2CD206664F3F5A22AD052</key>
+		<key>9CE848B758F76F2AC4C23DA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DD36BB19A0DE0F7576B2B135</key>
+		<key>B99C51ACBEC397DF2D5BB447</key>
 		<dict>
 			<key>primary</key>
 			<true/>

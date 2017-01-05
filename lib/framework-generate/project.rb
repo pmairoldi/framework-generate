@@ -96,29 +96,41 @@ module FrameworkGenerate
     end
 
 
-    def update_schemes(project, targets)
-      project.recreate_user_schemes
-      targets.each do |target|
-        Xcodeproj::XCScheme.share_scheme(project_path, target.name)
-      end
+    def remove_schemes(project)
+      user_schemes_dir = Xcodeproj::XCScheme.user_data_dir(project.path)
+      FileUtils.rm_rf(user_schemes_dir)
+      FileUtils.mkdir_p(user_schemes_dir)
+
+      shared_schemes_dir = Xcodeproj::XCScheme.shared_data_dir(project.path)
+      FileUtils.rm_rf(shared_schemes_dir)
+      FileUtils.mkdir_p(shared_schemes_dir)
     end
 
     def generate
 
       project = Xcodeproj::Project.new(project_path)
 
-      @targets.each do |target|
-        created_target = target.create(project, language)
-
-        next unless target.test_target != nil
-
-        created_test_target = target.test_target.create(project, language)
-
-        created_test_target.add_dependency(created_target)
-      end
+      remove_schemes(project)
 
       project.build_configurations.each do |configuration|
         general_build_settings(configuration.build_settings)
+      end
+
+      @targets.each do |target|
+        scheme = Xcodeproj::XCScheme.new
+
+        created_target = target.create(project, language)
+
+        scheme.add_build_target(created_target)
+
+        if target.test_target != nil
+          created_test_target = target.test_target.create(project, language)
+          created_test_target.add_dependency(created_target)
+
+          scheme.add_test_target(created_test_target)
+        end
+
+        scheme.save_as(project.path, target.name, true)
       end
 
       project.native_targets.each do |target|
@@ -128,7 +140,6 @@ module FrameworkGenerate
         end
       end
 
-      update_schemes(project, @targets)
       project.save
 
       puts "Successfully generated #{project_path}"
