@@ -2,15 +2,16 @@ require 'xcodeproj'
 
 module FrameworkGenerate
   class Target
-    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :dependencies, :type, :test_target
+    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :test_target
 
-    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, dependencies = nil, type = :framework, test_target = nil)
+    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, test_target = nil)
       @name = name
       @info_plist = info_plist
       @bundle_id = bundle_id
       @header = header
       @include_files = include_files
       @exclude_files = exclude_files
+      @resource_files = resource_files
       @dependencies = dependencies
       @type = type
       @test_target = test_target
@@ -133,6 +134,25 @@ module FrameworkGenerate
       end
     end
 
+    def add_resource_files(project, target)
+      return unless @resource_files != nil
+
+      files = @resource_files.map do |files|
+        Dir[files]
+      end
+
+      files.each do |file_directory|
+        file_directory.each do |path|
+          file_group = find_group(project, path)
+          has_file = file_group.find_file_by_path(path)
+          unless has_file
+            file = file_group.new_reference(path)
+            target.resources_build_phase.add_file_reference(file, true)
+          end
+        end
+      end
+    end
+
     def create(project, language)
       name = @name
       type = @type
@@ -157,12 +177,14 @@ module FrameworkGenerate
       target.product_reference = product
 
       # Build phases
-      target.build_phases << project.new(Xcodeproj::Project::Object::PBXSourcesBuildPhase)
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXResourcesBuildPhase)
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXFrameworksBuildPhase)
 
       # Dependencies
       add_dependencies(project, target)
+
+      # Resource files
+      add_resource_files(project, target)
 
       # Copy frameworks to test target
       if target.test_target_type?

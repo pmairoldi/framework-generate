@@ -119,6 +119,10 @@ module FrameworkGenerate
 
         scheme.add_build_target(created_target)
 
+        if created_target.test_target_type?
+          scheme.add_test_target(created_target)
+        end
+
         if target.test_target != nil
           created_test_target = target.test_target.create(project, language)
           created_test_target.add_dependency(created_target)
