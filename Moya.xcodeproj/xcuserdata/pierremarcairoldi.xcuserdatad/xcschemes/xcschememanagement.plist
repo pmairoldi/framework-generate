@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Moya.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>MoyaTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>ReactiveMoya.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>RxMoya.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4A5CF1A5EEA0F2BD5713D953</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8A6346BCB26C1F2241BAF1D4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9D3EA2FC658E00D74ECC0099</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D308A7473B8FEE525DCD1CDF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E356EBECF94810690BB142DF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
