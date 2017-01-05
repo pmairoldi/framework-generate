@@ -16,7 +16,7 @@ module FrameworkGenerate
 
     def self.supported_platforms(platforms, is_test_target = false)
       platforms
-          .reject { |platform| is_test_target && platform == :watchos }
+          .reject { |platform| is_test_target && platform.type == :watchos }
           .map { |platform| platform.raw_values }
           .join(' ')
     end
