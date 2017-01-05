@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.0.0'
 
-  s.files         = %w(README.md LICENSE) + Dir['lib/**/*.rb']
+  s.files         = %w(README.md LICENSE) + Dir['lib/**/*.rb'] +  Dir['lib/**/*.sh']
   s.executables   = %w(framework-generate)
   s.require_paths = %w(lib)
 
