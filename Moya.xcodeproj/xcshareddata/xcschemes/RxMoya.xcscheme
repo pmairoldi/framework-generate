@@ -7,43 +7,42 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
+            buildForAnalyzing = "YES"
             buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "392C8EAA85093EA84E687B8E"
-               BuildableName = "RxMoya.framework"
-               BlueprintName = "RxMoya"
-               ReferencedContainer = "container:Moya.xcodeproj">
+               BuildableIdentifier = 'primary'
+               BlueprintIdentifier = 'DF84C336F33A72EDA08CBD84'
+               BlueprintName = 'RxMoya'
+               ReferencedContainer = 'container:Moya.xcodeproj'
+               BuildableName = 'RxMoya.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
+      <AdditionalOptions>
+      </AdditionalOptions>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CBA0E4FC32C5178AB4CDAFF"
-               BuildableName = "RxMoyaTests.xctest"
-               BlueprintName = "RxMoyaTests"
-               ReferencedContainer = "container:Moya.xcodeproj">
+               BuildableIdentifier = 'primary'
+               BlueprintIdentifier = 'A5763E3B85798609B115897F'
+               BlueprintName = 'RxMoyaTests'
+               ReferencedContainer = 'container:Moya.xcodeproj'
+               BuildableName = 'RxMoyaTests.xctest'>
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -51,25 +50,17 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
+      buildConfiguration = "Debug"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "392C8EAA85093EA84E687B8E"
-            BuildableName = "RxMoya.framework"
-            BlueprintName = "RxMoya"
-            ReferencedContainer = "container:Moya.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES">
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
