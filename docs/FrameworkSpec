@@ -34,6 +34,7 @@ moya = target do |target|
   target.header = 'Sources/Supporting Files/Moya.h'
   target.include_files = ['Sources/Moya/**/*.swift']
   target.exclude_files = []
+  target.is_safe_for_extensions = true
 end
 
 reactive_moya = target do |target|

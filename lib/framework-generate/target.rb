@@ -2,9 +2,9 @@ require 'xcodeproj'
 
 module FrameworkGenerate
   class Target
-    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :test_target
+    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :test_target, :is_safe_for_extensions
 
-    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, test_target = nil)
+    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, test_target = nil, is_safe_for_extensions = false)
       @name = name
       @info_plist = info_plist
       @bundle_id = bundle_id
@@ -15,12 +15,13 @@ module FrameworkGenerate
       @dependencies = dependencies
       @type = type
       @test_target = test_target
+      @is_safe_for_extensions = is_safe_for_extensions
 
       yield(self) if block_given?
     end
 
     def to_s
-      "Target<#{name}, #{info_plist}, #{bundle_id}, #{header}, #{include_files}, #{exclude_files}, #{dependencies}>"
+      "Target<#{name}, #{info_plist}, #{bundle_id}, #{header}, #{include_files}, #{exclude_files}, #{dependencies}, #{type}, #{test_target}, #{is_safe_for_extensions}>"
     end
 
     def target_build_settings(settings)
@@ -28,6 +29,7 @@ module FrameworkGenerate
 
       settings['INFOPLIST_FILE'] = @info_plist
       settings['PRODUCT_BUNDLE_IDENTIFIER'] = @bundle_id
+      settings['APPLICATION_EXTENSION_API_ONLY'] = @is_safe_for_extensions ? 'YES' : 'NO';
 
       settings
     end
