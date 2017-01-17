@@ -187,6 +187,9 @@ module FrameworkGenerate
       target.product_type = Xcodeproj::Constants::PRODUCT_TYPE_UTI[type]
       target.build_configuration_list = Xcodeproj::Project::ProjectHelper.configuration_list(project, :osx, nil, type, language.type)
 
+      # Pre build script
+      add_pre_build_scripts(target)
+
       add_supporting_files(project, target)
       add_source_files(project, target)
 
@@ -199,11 +202,11 @@ module FrameworkGenerate
       target.product_reference = product
 
       # Build phases
-      add_pre_build_scripts(target)
 
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXResourcesBuildPhase)
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXFrameworksBuildPhase)
       
+      # Post build script
       add_post_build_scripts(target)
 
       # Dependencies
