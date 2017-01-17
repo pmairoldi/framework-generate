@@ -20,4 +20,5 @@ module FrameworkGenerate
   autoload :Language, 'framework-generate/language'
   autoload :Platform, 'framework-generate/platform'
   autoload :Target, 'framework-generate/target'
+  autoload :Script, 'framework-generate/script'
 end

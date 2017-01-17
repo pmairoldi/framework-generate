@@ -2,9 +2,9 @@ require 'xcodeproj'
 
 module FrameworkGenerate
   class Target
-    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :test_target, :is_safe_for_extensions
+    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions
 
-    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, test_target = nil, is_safe_for_extensions = false)
+    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false)
       @name = name
       @info_plist = info_plist
       @bundle_id = bundle_id
@@ -14,6 +14,8 @@ module FrameworkGenerate
       @resource_files = resource_files
       @dependencies = dependencies
       @type = type
+      @pre_build_scripts = pre_build_scripts
+      @post_build_scripts = post_build_scripts
       @test_target = test_target
       @is_safe_for_extensions = is_safe_for_extensions
 
@@ -155,6 +157,24 @@ module FrameworkGenerate
       end
     end
 
+    def add_build_scripts(target, scripts)
+      return unless scripts != nil
+
+      scripts.each do |script| 
+        build_phase = target.new_shell_script_build_phase(script.name)
+        build_phase.shell_script = script.script
+        build_phase.input_paths = script.inputs
+      end
+    end
+
+    def add_pre_build_scripts(target)
+      add_build_scripts(target, @pre_build_scripts)
+    end
+    
+    def add_post_build_scripts(target)
+      add_build_scripts(target, @post_build_scripts)
+    end
+    
     def create(project, language)
       name = @name
       type = @type
@@ -179,8 +199,12 @@ module FrameworkGenerate
       target.product_reference = product
 
       # Build phases
+      add_pre_build_scripts(target)
+
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXResourcesBuildPhase)
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXFrameworksBuildPhase)
+      
+      add_post_build_scripts(target)
 
       # Dependencies
       add_dependencies(project, target)

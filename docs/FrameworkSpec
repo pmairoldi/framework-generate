@@ -35,6 +35,12 @@ moya = target do |target|
   target.include_files = ['Sources/Moya/**/*.swift']
   target.exclude_files = []
   target.is_safe_for_extensions = true
+  target.pre_build_scripts = [
+    Script.new('Test 1', "echo 'hello world'", nil)
+  ]
+  target.post_build_scripts = [
+    Script.new('Test 2', "echo 'hello world'", nil)
+  ]
 end
 
 reactive_moya = target do |target|
