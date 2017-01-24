@@ -44,7 +44,7 @@ module FrameworkGenerate
       when :watchos
         'watchos watchsimulator'
       else
-        abort 'platform not supported!'
+        raise 'platform not supported!'
       end
     end
 
@@ -59,7 +59,7 @@ module FrameworkGenerate
       when :watchos
         '$(SRCROOT)/Carthage/Build/watchOS/ $(inherited)'
       else
-        abort 'platform not supported!'
+        raise 'platform not supported!'
       end
     end
   end
