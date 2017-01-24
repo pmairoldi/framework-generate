@@ -158,9 +158,14 @@ end
 An array of [scripts](#script) to run before building the target builds.
 
 ```ruby
+hello_world = new_script do |script|
+  script.name = "Hello World"
+  script.script = 'echo "hello world"'
+end
+
 target = new_target do |target|
   target.pre_build_scripts = [
-    Script.new("Hello World", 'echo "hello world"')
+    hello_world
   ]
 end
 ```
@@ -170,9 +175,14 @@ end
 An array of [scripts](#script) to run after building the target.
 
 ```ruby
+hello_world = new_script do |script|
+  script.name = "Hello World"
+  script.script = 'echo "hello world"'
+end
+
 target = new_target do |target|
   target.post_build_scripts = [
-    Script.new("Hello World", 'echo "hello world"')
+    hello_world
   ]
 end
 ```
