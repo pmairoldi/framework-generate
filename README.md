@@ -1,5 +1,5 @@
 # framework-generate
-Simple tool to help generate Xcode framework projects for all targets at once
+Simple tool to help generate a [multiplatform, single-scheme Xcode project](http://promisekit.org/news/2016/08/Multiplatform-Single-Scheme-Xcode-Projects/).
 
 ## Installation
 
