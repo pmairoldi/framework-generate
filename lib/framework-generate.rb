@@ -14,9 +14,9 @@ module FrameworkGenerate
 
           FileUtils.cp(sample_framework_spec, file_path)
 
-          abort "Created a FrameworkSpec. Update the contents of the FrameworkSpec file and rerun the command"
+          raise "Created a FrameworkSpec. Update the contents of the FrameworkSpec file and rerun the command"
         elsif
-          abort "Cannot create a project without a FrameworkSpec"
+          raise "Cannot create a project without a FrameworkSpec"
         end
       end
 
