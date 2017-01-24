@@ -19,6 +19,8 @@ framework-generate
 
 `framework-generate` will look for a `FrameworkSpec` file in the current folder to generate your Xcode project. An example of a `FrameworkSpec` can be found in the [`docs`](docs/FrameworkSpec) folder of this repoisitory.
 
+To view the full `FrameworkSpec` documentation see the [`docs`](docs/FrameworkSpec.md) folder.
+
 ## Todo
 
 - [X] Add documentation
