@@ -76,8 +76,12 @@ module FrameworkGenerate
     end
 
     def add_source_files(project, target)
-      exclude_files = @exclude_files.map do |files|
-        Dir[files]
+      if @exclude_files == nil
+        exclude_files = []
+      else
+        exclude_files = @exclude_files.map do |files|
+          Dir[files]
+        end
       end
 
       source_files = @include_files.map do |files|

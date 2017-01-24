@@ -1,10 +1,23 @@
+require 'fileutils'
+
 module FrameworkGenerate
   class Runner
     def self.generate
       file_path = "#{Dir.pwd}/FrameworkSpec"
 
       unless File.exist?(file_path)
-        abort "Couldn't find FrameworkSpec"
+        puts "Couldn't find FrameworkSpec. Do you want to create one? [Y/N]"
+        create_file = gets.chomp
+
+        if create_file == "Y"
+          sample_framework_spec = File.join(File.dirname(__FILE__), 'SampleFrameworkSpec')
+
+          FileUtils.cp(sample_framework_spec, file_path)
+
+          abort "Created a FrameworkSpec. Update the contents of the FrameworkSpec file and rerun the command"
+        elsif
+          abort "Cannot create a project without a FrameworkSpec"
+        end
       end
 
       file_contents = File.read(file_path)
