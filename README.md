@@ -1,4 +1,7 @@
 # framework-generate
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)
+[![Gem](https://img.shields.io/gem/v/framework-generate.svg?style=flat)](https://rubygems.org/gems/framework-generate)
+
 Simple tool to help generate a [multiplatform, single-scheme Xcode project](http://promisekit.org/news/2016/08/Multiplatform-Single-Scheme-Xcode-Projects/).
 
 ## Installation
