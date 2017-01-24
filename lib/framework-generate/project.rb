@@ -23,25 +23,25 @@ module FrameworkGenerate
     end
 
     # DSL
-    def target(&block)
+    def new_target(&block)
       Target.new do |target|
         block.call(target)
       end
     end
 
-    def platform(&block)
+    def new_platform(&block)
       Platform.new do |platform|
         block.call(platform)
       end
     end
 
-    def language(&block)
+    def new_language(&block)
       Language.new do |language|
         block.call(language)
       end
     end
     
-    def script(&block)
+    def new_script(&block)
       Script.new do |script|
         block.call(script)
       end

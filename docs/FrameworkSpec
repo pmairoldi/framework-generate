@@ -1,13 +1,13 @@
 project.name = "Moya"
-project.language = swift "3.0"
+project.language = swift("3.0")
 project.platforms = [
-    macos "10.11",
-    ios "8.0",
-    tvos "9.0",
-    watchos "2.0"
+    macos("10.11"),
+    ios("8.0"),
+    tvos("9.0"),
+    watchos("2.0")
 ]
 
-moya_tests = target do |target|
+moya_tests = new_target do |target|
   target.name = "MoyaTests"
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.MoyaTests"
@@ -15,21 +15,21 @@ moya_tests = target do |target|
   target.exclude_files = []
   target.resource_files = ["Tests/**/*.png"]
   target.dependencies = [
-    "Moya.framework",
-    "ReactiveMoya.framework",
-    "RxMoya.framework",
-    "Nimble.framework",
-    "Quick.framework",
-    "OHHTTPStubs.framework",
-    "Result.framework",
-    "Alamofire.framework",
-    "ReactiveSwift.framework",
-    "RxSwift.framework"
+    "Moya",
+    "ReactiveMoya",
+    "RxMoya",
+    "Nimble",
+    "Quick",
+    "OHHTTPStubs",
+    "Result",
+    "Alamofire",
+    "ReactiveSwift",
+    "RxSwift"
   ]
   target.type = :unit_test_bundle
 end
 
-moya = target do |target|
+moya = new_target do |target|
   target.name = "Moya"
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.Moya"
@@ -37,32 +37,33 @@ moya = target do |target|
   target.include_files = ["Sources/Moya/**/*.swift"]
   target.exclude_files = []
   target.is_safe_for_extensions = true
-  target.pre_build_scripts = [
-    Script.new("Test 1", 'echo "hello world"')
-  ]
-  target.post_build_scripts = [
-    Script.new("Test 2", 'echo "hello world"')
-  ]
 end
 
-reactive_moya = target do |target|
+reactive_moya = new_target do |target|
   target.name = "ReactiveMoya"
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.ReactiveMoya"
   target.header = "Sources/Supporting Files/ReactiveMoya.h"
   target.include_files = ["Sources/ReactiveMoya/**/*.swift"]
   target.exclude_files = []
-  target.dependencies = ["Moya.framework"]
+  target.is_safe_for_extensions = true
+  target.dependencies = ["Moya"]
 end
 
-rx_moya = target do |target|
+rx_moya = new_target do |target|
   target.name = "RxMoya"
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.RxMoya"
   target.header = "Sources/Supporting Files/RxMoya.h"
   target.include_files = ["Sources/RxMoya/**/*.swift"]
   target.exclude_files = []
-  target.dependencies = ["Moya.framework"]
+  target.is_safe_for_extensions = true
+  target.dependencies = ["Moya"]
 end
 
-project.targets = [moya, reactive_moya, rx_moya, moya_tests]
+project.targets = [
+  moya,
+  reactive_moya,
+  rx_moya, 
+  moya_tests
+]

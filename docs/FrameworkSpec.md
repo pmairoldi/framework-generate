@@ -21,7 +21,7 @@ project.name = "Project"
 The [language](#language) that the framework will support.
 
 ```ruby
-project.language = swift "3.0"
+project.language = swift("3.0")
 ```
 
 #### Platforms
@@ -30,10 +30,10 @@ An array of [platforms](#Platform) that the framework will support.
 
 ```ruby
 project.platforms = [
-    macos "10.11",
-    ios "8.0",
-    tvos "9.0",
-    watchos "2.0"
+  macos("10.11"),
+  ios("8.0"),
+  tvos("9.0"),
+  watchos("2.0")
 ]
 ```
 
@@ -42,7 +42,7 @@ project.platforms = [
 An array of [targets](#Target) that the framework will create.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.name = "Target"
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.org.target"
@@ -64,7 +64,7 @@ A target contains the information that is needed to generate an xcode target ins
 The name of the target that will be generated.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.name = "Target"
 end
 ```
@@ -74,7 +74,7 @@ end
 The path to the targat's `info.plist` file.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.info_plist = "Sources/Supporting Files/Info.plist"
 end
 ```
@@ -84,7 +84,7 @@ end
 The target's bundle id.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.bundle_id = "com.org.target"
 end
 ```
@@ -94,7 +94,7 @@ end
 The target's framework header.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.header = "Sources/Supporting Files/Target.h"
 end
 ```
@@ -104,7 +104,7 @@ end
 An array for the source files to be included in the target. Patterns can be used to automatically find all files matching the pattern.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.include_files = ["Sources/**/*.swift", "ThirdParty/**/*.swift"]
 end
 ```
@@ -114,7 +114,7 @@ end
 An array for the source files to be excluded from the target. Patterns can be used to automatically find all files matching the pattern.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.exclude_files = ["Sources/**/*_old.swift", "ThirdParty/**/*_old.swift"]
 end
 ```
@@ -124,7 +124,7 @@ end
 An array for the resouce files to be included from the target. Patterns can be used to automatically find all files matching the pattern.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.resource_files = ["Images/**/*.png"]
 end
 ```
@@ -134,11 +134,11 @@ end
 An array for the dependencies a target has. If a dependency's name matches the name of another target in the `FrameworkSpec` then it will be used. Otherwise all dependencies are assumed to come from the carthage build folder.
 
 ```ruby
-dependency = target do |target|
+dependency = new_target do |target|
   targat.name = "Dependency"
 end
 
-target = target do |target|
+target = new_target do |target|
   target.dependencies = ["Dependency", "Alamofire"]
 end
 ```
@@ -148,7 +148,7 @@ end
 The type of target to generate. The default value is `:framework` and the possible values include: `:framework` and `:unit_test_bundle`.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.type = :framework
 end
 ```
@@ -158,7 +158,7 @@ end
 An array of [scripts](#Script) to run before building the target builds.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.pre_build_scripts = [
     Script.new("Hello World", 'echo "hello world"')
   ]
@@ -170,7 +170,7 @@ end
 An array of [scripts](#Script) to run after building the target.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.post_build_scripts = [
     Script.new("Hello World", 'echo "hello world"')
   ]
@@ -182,11 +182,11 @@ end
 Linking a test bundle to a target to be able to run the test action in Xcode.
 
 ```ruby
-test_target = target do |target|
+test_target = new_target do |target|
   targat.type = :unit_test_bundle
 end
 
-target = target do |target|
+target = new_target do |target|
   target.test_target = test_target
 end
 ```
@@ -196,7 +196,7 @@ end
 Set whether the target uses only extension safe apis. The default value is `false` and the possible values include: `true` and `false`.
 
 ```ruby
-target = target do |target|
+target = new_target do |target|
   target.is_safe_for_extensions = true
 end
 ```
@@ -206,10 +206,10 @@ end
 Describes the platform constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:
 
 ```ruby
-macos "10.11"
-ios "8.0"
-tvos "9.0"
-watchos "2.0"
+macos("10.11")
+ios("8.0")
+tvos("9.0")
+watchos("2.0")
 ```
 
 ### Properties
@@ -219,7 +219,7 @@ watchos "2.0"
 The type of the platform to target. The possible values are: `:macos`, `:ios`, `:tvos` and `watchos`.
 
 ```ruby
-macos = platform do |platform|
+macos = new_platform do |platform|
   platform.type = :macos
 end
 ```
@@ -229,7 +229,7 @@ end
 The minimun deployment version of the platform for the target.
 
 ```ruby
-macos = platform do |platform|
+macos = new_platform do |platform|
   platform.minimum_version = "8.0"
 end
 ```
@@ -239,7 +239,7 @@ end
 Sets the framework search paths for the project. The default value is setup to use the carthage build folder.
 
 ```ruby
-macos = platform do |platform|
+macos = new_platform do |platform|
   platform.search_paths = "$(SRCROOT)/Carthage/Build/Mac/ $(inherited)"
 end
 ```
@@ -260,7 +260,7 @@ objc
 The type of the platform to target. The possible values are: `:swift`, and `objc`.
 
 ```ruby
-swift = language do |language|
+swift = new_language do |language|
   language.type = :swift
 end
 ```
@@ -270,7 +270,7 @@ end
 Sets the version of the language to use. This setting only applies to the `:swift` type.
 
 ```ruby
-swift = language do |language|
+swift = new_language do |language|
   language.version = "3.0"
 end
 ```
@@ -286,7 +286,7 @@ Describes scripts that can be added to a target.
 The name of the script that will be shown in the target's build phases in the Xcode project.
 
 ```ruby
-hello_world = script do |script|
+hello_world = new_script do |script|
   script.name = "Hello World"
 end
 ```
@@ -296,7 +296,7 @@ end
 The contents of the script that will be executed.
 
 ```ruby
-hello_world = script do |script|
+hello_world = new_script do |script|
   script.script = "echo 'hello world'"
 end
 ```
@@ -306,7 +306,7 @@ end
 An array of inputs to pass to the executed script.
 
 ```ruby
-hello_world = script do |script|
+hello_world = new_script do |script|
   script.inputs = ["hello", "world"]
 end
 ```

@@ -98,15 +98,19 @@ module FrameworkGenerate
       end
     end
 
+    def append_framework_extension(framework)
+      if File.extname(framework) == '.framework'
+        return framework
+      end
+
+      "#{framework}.framework"
+    end
+
     def add_dependencies(project, target)
       return unless @dependencies != nil
 
       dependency_names = @dependencies.map do |dependency|
-        if File.extname(dependency) == '.framework'
-          return dependency
-        end
-
-        "#{@name}.framework"
+        append_framework_extension(dependency)
       end
 
       frameworks = dependency_names.reject do |name|
@@ -137,7 +141,11 @@ module FrameworkGenerate
     def add_framework_to_copy_phase(project, build_phase)
       return unless @dependencies != nil
 
-      frameworks = @dependencies.reject do |name|
+      dependency_names = @dependencies.map do |dependency|
+        append_framework_extension(dependency)
+      end
+
+      frameworks = dependency_names.reject do |name|
         project.products.any? { |x| x.path == name }
       end
 
