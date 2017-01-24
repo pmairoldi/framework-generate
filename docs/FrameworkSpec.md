@@ -2,7 +2,7 @@
 
 The `FrameworkSpec` is a file that describes how to create a project file for a [multiplatform, single-scheme Xcode project](http://promisekit.org/news/2016/08/Multiplatform-Single-Scheme-Xcode-Projects/).
 
-## Project<a name="Project"></a>
+## Project
 
 A project contains all the information to generate a project file. A `FrameworkSpec` automatically creates a project so its properties can be accessed directly. All properties need to be set in order for the project to be generated properly.
 
@@ -18,7 +18,7 @@ project.name = "Project"
 
 #### Language
 
-The [language](#Language) that the framework will support.
+The [language](#language-1) that the framework will support.
 
 ```ruby
 project.language = swift("3.0")
@@ -26,7 +26,7 @@ project.language = swift("3.0")
 
 #### Platforms
 
-An array of [platforms](#Platform) that the framework will support.
+An array of [platforms](#platform) that the framework will support.
 
 ```ruby
 project.platforms = [
@@ -39,7 +39,7 @@ project.platforms = [
 
 #### Targets
 
-An array of [targets](#Target) that the framework will create.
+An array of [targets](#target) that the framework will create.
 
 ```ruby
 target = new_target do |target|
@@ -53,7 +53,7 @@ end
 project.targets = [target]
 ```
 
-## Target<a name="Target"></a>
+## Target
 
 A target contains the information that is needed to generate an xcode target inside of an Xcode project. 
 
@@ -155,7 +155,7 @@ end
 
 #### Pre Build Scripts
 
-An array of [scripts](#Script) to run before building the target builds.
+An array of [scripts](#script) to run before building the target builds.
 
 ```ruby
 target = new_target do |target|
@@ -167,7 +167,7 @@ end
 
 #### Post Build Scripts
 
-An array of [scripts](#Script) to run after building the target.
+An array of [scripts](#script) to run after building the target.
 
 ```ruby
 target = new_target do |target|
@@ -201,7 +201,7 @@ target = new_target do |target|
 end
 ```
 
-## Platform<a name="Platform"></a>
+## Platform
 
 Describes the platform constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:
 
@@ -244,7 +244,7 @@ macos = new_platform do |platform|
 end
 ```
 
-## Language<a name="Language"></a>
+## Language
 
 Describes the language constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:
 
@@ -275,7 +275,7 @@ swift = new_language do |language|
 end
 ```
 
-## Script<a name="Script"></a>
+## Script
 
 Describes scripts that can be added to a target.
 
