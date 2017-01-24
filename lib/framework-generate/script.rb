@@ -11,7 +11,7 @@ module FrameworkGenerate
     end
 
     def to_s
-      "Script<#{script}, #{inputs}>"
+      "Script<#{name}, #{script}, #{inputs}>"
     end
   end
 end

@@ -29,6 +29,25 @@ module FrameworkGenerate
       end
     end
 
+    def platform(&block)
+      Platform.new do |platform|
+        block.call(platform)
+      end
+    end
+
+    def language(&block)
+      Language.new do |language|
+        block.call(language)
+      end
+    end
+    
+    def script(&block)
+      Script.new do |script|
+        block.call(script)
+      end
+    end
+
+    # sugar
     def macos(version, search_paths = nil)
       Platform.new(:macos, version, search_paths)
     end

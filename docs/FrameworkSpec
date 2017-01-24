@@ -1,69 +1,68 @@
-macos = macos '10.11'
-ios = ios '8.0'
-tvos = tvos '9.0'
-watchos = watchos '2.0'
-
-language = swift '3.0'
+project.name = "Moya"
+project.language = swift "3.0"
+project.platforms = [
+    macos "10.11",
+    ios "8.0",
+    tvos "9.0",
+    watchos "2.0"
+]
 
 moya_tests = target do |target|
-  target.name = 'MoyaTests'
-  target.info_plist = 'Sources/Supporting Files/Info.plist'
-  target.bundle_id = 'com.cocoapods.MoyaTests'
-  target.include_files = ['Tests/**/*.swift']
+  target.name = "MoyaTests"
+  target.info_plist = "Sources/Supporting Files/Info.plist"
+  target.bundle_id = "com.cocoapods.MoyaTests"
+  target.include_files = ["Tests/**/*.swift"]
   target.exclude_files = []
-  target.resource_files = ['Tests/**/*.png']
+  target.resource_files = ["Tests/**/*.png"]
   target.dependencies = [
-    'Moya.framework',
-    'ReactiveMoya.framework',
-    'RxMoya.framework',
-    'Nimble.framework',
-    'Quick.framework',
-    'OHHTTPStubs.framework',
-    'Result.framework',
-    'Alamofire.framework',
-    'ReactiveSwift.framework',
-    'RxSwift.framework'
+    "Moya.framework",
+    "ReactiveMoya.framework",
+    "RxMoya.framework",
+    "Nimble.framework",
+    "Quick.framework",
+    "OHHTTPStubs.framework",
+    "Result.framework",
+    "Alamofire.framework",
+    "ReactiveSwift.framework",
+    "RxSwift.framework"
   ]
   target.type = :unit_test_bundle
 end
 
 moya = target do |target|
-  target.name = 'Moya'
-  target.info_plist = 'Sources/Supporting Files/Info.plist'
-  target.bundle_id = 'com.cocoapods.Moya'
-  target.header = 'Sources/Supporting Files/Moya.h'
-  target.include_files = ['Sources/Moya/**/*.swift']
+  target.name = "Moya"
+  target.info_plist = "Sources/Supporting Files/Info.plist"
+  target.bundle_id = "com.cocoapods.Moya"
+  target.header = "Sources/Supporting Files/Moya.h"
+  target.include_files = ["Sources/Moya/**/*.swift"]
   target.exclude_files = []
   target.is_safe_for_extensions = true
   target.pre_build_scripts = [
-    Script.new('Test 1', "echo 'hello world'", nil)
+    Script.new("Test 1", 'echo "hello world"')
   ]
   target.post_build_scripts = [
-    Script.new('Test 2', "echo 'hello world'", nil)
+    Script.new("Test 2", 'echo "hello world"')
   ]
 end
 
 reactive_moya = target do |target|
-  target.name = 'ReactiveMoya'
-  target.info_plist = 'Sources/Supporting Files/Info.plist'
-  target.bundle_id = 'com.cocoapods.ReactiveMoya'
-  target.header = 'Sources/Supporting Files/ReactiveMoya.h'
-  target.include_files = ['Sources/ReactiveMoya/**/*.swift']
+  target.name = "ReactiveMoya"
+  target.info_plist = "Sources/Supporting Files/Info.plist"
+  target.bundle_id = "com.cocoapods.ReactiveMoya"
+  target.header = "Sources/Supporting Files/ReactiveMoya.h"
+  target.include_files = ["Sources/ReactiveMoya/**/*.swift"]
   target.exclude_files = []
-  target.dependencies = ['Moya.framework']
+  target.dependencies = ["Moya.framework"]
 end
 
 rx_moya = target do |target|
-  target.name = 'RxMoya'
-  target.info_plist = 'Sources/Supporting Files/Info.plist'
-  target.bundle_id = 'com.cocoapods.RxMoya'
-  target.header = 'Sources/Supporting Files/RxMoya.h'
-  target.include_files = ['Sources/RxMoya/**/*.swift']
+  target.name = "RxMoya"
+  target.info_plist = "Sources/Supporting Files/Info.plist"
+  target.bundle_id = "com.cocoapods.RxMoya"
+  target.header = "Sources/Supporting Files/RxMoya.h"
+  target.include_files = ["Sources/RxMoya/**/*.swift"]
   target.exclude_files = []
-  target.dependencies = ['Moya.framework']
+  target.dependencies = ["Moya.framework"]
 end
 
-project.name = 'Moya'
-project.platforms = [macos, ios, tvos, watchos]
-project.language = language
 project.targets = [moya, reactive_moya, rx_moya, moya_tests]

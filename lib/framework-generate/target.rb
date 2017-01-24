@@ -101,7 +101,15 @@ module FrameworkGenerate
     def add_dependencies(project, target)
       return unless @dependencies != nil
 
-      frameworks = @dependencies.reject do |name|
+      dependency_names = @dependencies.map do |dependency|
+        if File.extname(dependency) == '.framework'
+          return dependency
+        end
+
+        "#{@name}.framework"
+      end
+
+      frameworks = dependency_names.reject do |name|
         !project.products.any? { |x| x.path == name }
       end
 

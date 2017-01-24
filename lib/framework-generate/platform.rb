@@ -11,7 +11,7 @@ module FrameworkGenerate
     end
 
     def to_s
-      "Platform<#{type}, #{minimum_version}>"
+      "Platform<#{type}, #{minimum_version}, #{search_paths}>"
     end
 
     def self.supported_platforms(platforms, is_test_target = false)

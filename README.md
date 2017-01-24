@@ -17,14 +17,14 @@ Once installed you can run the generate command from the command line as follows
 framework-generate
 ```
 
-`framework-generate` will look for a `FrameworkSpec` file in the current folder to generate your Xcode project. An example of a `FrameworkSpec` can be found in the `docs` folder of this repoisitory.
+`framework-generate` will look for a `FrameworkSpec` file in the current folder to generate your Xcode project. An example of a `FrameworkSpec` can be found in the [`docs`](docs/FrameworkSpec) folder of this repoisitory.
 
 ## Todo
 
-- [ ] Add documentation
+- [X] Add documentation
 - [ ] Add tests
 - [ ] Release 1.0
 
 ## License
 
-MIT
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file.
