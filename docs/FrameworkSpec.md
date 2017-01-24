@@ -2,7 +2,7 @@
 
 The `FrameworkSpec` is a file that describes how to create a project file for a [multiplatform, single-scheme Xcode project](http://promisekit.org/news/2016/08/Multiplatform-Single-Scheme-Xcode-Projects/).
 
-## Project
+## Project<a name="Project"></a>
 
 A project contains all the information to generate a project file. A `FrameworkSpec` automatically creates a project so its properties can be accessed directly. All properties need to be set in order for the project to be generated properly.
 
@@ -18,7 +18,7 @@ project.name = "Project"
 
 #### Language
 
-The [language](#language) that the framework will support.
+The [language](#Language) that the framework will support.
 
 ```ruby
 project.language = swift("3.0")
@@ -53,7 +53,7 @@ end
 project.targets = [target]
 ```
 
-## Target
+## Target<a name="Target"></a>
 
 A target contains the information that is needed to generate an xcode target inside of an Xcode project. 
 
@@ -201,7 +201,7 @@ target = new_target do |target|
 end
 ```
 
-## Platform
+## Platform<a name="Platform"></a>
 
 Describes the platform constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:
 
@@ -244,7 +244,7 @@ macos = new_platform do |platform|
 end
 ```
 
-## Language
+## Language<a name="Language"></a>
 
 Describes the language constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:
 
@@ -275,7 +275,7 @@ swift = new_language do |language|
 end
 ```
 
-## Script
+## Script<a name="Script"></a>
 
 Describes scripts that can be added to a target.
 
