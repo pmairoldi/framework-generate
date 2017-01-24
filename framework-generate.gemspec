@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = 'Simple tool to help generate a multiplatform, single-scheme Xcode project'
   s.authors     = ['Pierre-Marc Airoldi']
   s.email       = ['pierremarcairoldi@gmail.com']
-  s.homepage    = 'https:/pierremarcairoldi.com'
+  s.homepage    = 'https://pierremarcairoldi.com'
   s.license     = 'MIT'
 
   s.required_ruby_version = '>= 2.0.0'
