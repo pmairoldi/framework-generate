@@ -16,27 +16,6 @@ The name that will be for the project file.
 project.name = "Project"
 ```
 
-#### Language
-
-The [language](#language-1) that the framework will support.
-
-```ruby
-project.language = swift("3.0")
-```
-
-#### Platforms
-
-An array of [platforms](#platform) that the framework will support.
-
-```ruby
-project.platforms = [
-  macos("10.11"),
-  ios("8.0"),
-  tvos("9.0"),
-  watchos("2.0")
-]
-```
-
 #### Targets
 
 An array of [targets](#target) that the framework will create.
@@ -48,6 +27,13 @@ target = new_target do |target|
   target.bundle_id = "com.org.target"
   target.header = "Sources/Supporting Files/Target.h"
   target.include_files = ["Sources/**/*.swift"]
+  target.language = swift("3.0")
+  target.platforms = [
+    macos("10.11"),
+    ios("8.0"),
+    tvos("9.0"),
+    watchos("2.0")
+  ]
 end
 
 project.targets = [target]
@@ -68,10 +54,34 @@ target = new_target do |target|
   target.name = "Target"
 end
 ```
+#### Language
+
+The [language](#language-1) that the target will support.
+
+```ruby
+target = new_target do |target|
+  target.language = swift("3.0")
+end
+```
+
+#### Platforms
+
+An array of [platforms](#platform) that the target will support.
+
+```ruby
+target = new_target do |target|
+  target.platforms = [
+    macos("10.11"),
+    ios("8.0"),
+    tvos("9.0"),
+    watchos("2.0")
+  ]
+end
+```
 
 #### Info Plist
 
-The path to the targat's `info.plist` file.
+The path to the target's `info.plist` file.
 
 ```ruby
 target = new_target do |target|
@@ -135,7 +145,7 @@ An array for the dependencies a target has. If a dependency's name matches the n
 
 ```ruby
 dependency = new_target do |target|
-  targat.name = "Dependency"
+  target.name = "Dependency"
 end
 
 target = new_target do |target|
@@ -193,7 +203,7 @@ Linking a test bundle to a target to be able to run the test action in Xcode.
 
 ```ruby
 test_target = new_target do |target|
-  targat.type = :unit_test_bundle
+  target.type = :unit_test_bundle
 end
 
 target = new_target do |target|

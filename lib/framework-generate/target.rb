@@ -2,10 +2,12 @@ require 'xcodeproj'
 
 module FrameworkGenerate
   class Target
-    attr_accessor :name, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions
+    attr_accessor :name, :platforms, :language, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions
 
-    def initialize(name = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false)
+    def initialize(name = nil, platforms = nil, language = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false)
       @name = name
+      @platforms = platforms
+      @language = language
       @info_plist = info_plist
       @bundle_id = bundle_id
       @header = header
@@ -32,6 +34,16 @@ module FrameworkGenerate
       settings['INFOPLIST_FILE'] = @info_plist
       settings['PRODUCT_BUNDLE_IDENTIFIER'] = @bundle_id
       settings['APPLICATION_EXTENSION_API_ONLY'] = @is_safe_for_extensions ? 'YES' : 'NO';
+      settings['SUPPORTED_PLATFORMS'] = FrameworkGenerate::Platform::supported_platforms(@platforms)
+      settings['MACOSX_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :macos)
+      settings['IPHONEOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :ios)
+      settings['TVOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :tvos)
+      settings['WATCHOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :watchos)
+      settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :macos)
+      settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :ios)
+      settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :tvos)
+      settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :watchos)
+      settings['SWIFT_VERSION'] = @language.version
 
       settings
     end

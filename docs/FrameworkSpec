@@ -1,6 +1,6 @@
 project.name = "Moya"
-project.language = swift("3.0")
-project.platforms = [
+language = swift("3.0")
+platforms = [
     macos("10.11"),
     ios("8.0"),
     tvos("9.0"),
@@ -9,6 +9,8 @@ project.platforms = [
 
 moya_tests = new_target do |target|
   target.name = "MoyaTests"
+  target.platforms = platforms
+  target.language = language
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.MoyaTests"
   target.include_files = ["Tests/**/*.swift"]
@@ -31,6 +33,8 @@ end
 
 moya = new_target do |target|
   target.name = "Moya"
+  target.platforms = platforms
+  target.language = language
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.Moya"
   target.header = "Sources/Supporting Files/Moya.h"
@@ -41,6 +45,8 @@ end
 
 reactive_moya = new_target do |target|
   target.name = "ReactiveMoya"
+  target.platforms = platforms
+  target.language = language
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.ReactiveMoya"
   target.header = "Sources/Supporting Files/ReactiveMoya.h"
@@ -52,6 +58,8 @@ end
 
 rx_moya = new_target do |target|
   target.name = "RxMoya"
+  target.platforms = platforms
+  target.language = language
   target.info_plist = "Sources/Supporting Files/Info.plist"
   target.bundle_id = "com.cocoapods.RxMoya"
   target.header = "Sources/Supporting Files/RxMoya.h"
