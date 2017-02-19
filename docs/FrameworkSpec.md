@@ -39,6 +39,14 @@ end
 project.targets = [target]
 ```
 
+#### Scripts Path
+
+The path to save scripts to relative to the current directory.
+
+```ruby
+project.scripts_path = "scripts"
+```
+
 ## Target
 
 A target contains the information that is needed to generate an xcode target inside of an Xcode project. 

@@ -1,4 +1,5 @@
 require 'xcodeproj'
+require 'fileutils'
 
 module FrameworkGenerate
   class Target
@@ -142,15 +143,29 @@ module FrameworkGenerate
       end
     end
 
-    def copy_carthage_frameworks(project, build_phase)
-      script_file_path = File.join(File.dirname(__FILE__), 'copy-carthage-frameworks.sh')
+    def copy_carthage_frameworks(project, build_phase, scripts_path)
+      script_file_name = 'copy-carthage-frameworks.sh'
+      script_file_path = File.join(File.dirname(__FILE__), script_file_name)
 
-      script_file = File.open(script_file_path)
+      if scripts_path.nil?
+        script_file = File.open(script_file_path)
 
-      build_phase.shell_script = script_file.read
+        build_phase.shell_script = script_file.read
 
-      script_file.close
+        script_file.close
+      else
+        script_path = File.join(Dir.pwd, scripts_path, script_file_name)
+        dirname = File.dirname(script_path)
+        unless File.directory?(dirname)
+          FileUtils.mkdir_p(dirname)
+        end
 
+        FileUtils.cp(script_file_path, script_path, { :preserve => true })
+
+        xcode_path = File.join("${SRCROOT}", scripts_path, script_file_name)
+        build_phase.shell_script = " exec \"#{xcode_path}\""
+      end
+      
       add_framework_to_copy_phase(project, build_phase)
     end
 
@@ -207,7 +222,7 @@ module FrameworkGenerate
       add_build_scripts(target, @post_build_scripts)
     end
     
-    def create(project, language)
+    def create(project, language, scripts_path)
       name = @name
       type = @type
 
@@ -250,7 +265,7 @@ module FrameworkGenerate
       # Copy frameworks to test target
       if target.test_target_type?
         build_phase = target.new_shell_script_build_phase('Copy Carthage Frameworks')
-        copy_carthage_frameworks(project, build_phase)
+        copy_carthage_frameworks(project, build_phase, scripts_path)
       end
 
       target

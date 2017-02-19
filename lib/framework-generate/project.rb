@@ -2,11 +2,12 @@ require 'xcodeproj'
 
 module FrameworkGenerate
   class Project
-    attr_accessor :name, :targets
+    attr_accessor :name, :targets, :scripts_path
 
-    def initialize(name = nil, targets = nil)
+    def initialize(name = nil, targets = nil, embed_scripts = nil)
       @name = name
       @targets = targets
+      @scripts_path = scripts_path
 
       yield(self) if block_given?
     end
@@ -100,6 +101,10 @@ module FrameworkGenerate
       settings
     end
 
+    def target_with_name(project, name) 
+      project.native_targets.detect { |e| e.name == name } 
+    end
+
     def generate
 
       project = Xcodeproj::Project.new(project_path)
@@ -120,7 +125,11 @@ module FrameworkGenerate
 
         scheme = Xcodeproj::XCScheme.new
 
-        created_target = target.create(project, target.language)
+        created_target = target_with_name(project, target.name)
+        
+        if created_target.nil?
+          created_target = target.create(project, target.language, @scripts_path)
+        end
 
         scheme.add_build_target(created_target)
 
@@ -129,10 +138,19 @@ module FrameworkGenerate
         end
 
         if target.test_target != nil
-          created_test_target = target.test_target.create(project, target.language)
+          created_test_target = target_with_name(project, target.test_target.name)
+
+          if created_test_target.nil?
+            created_test_target = target.test_target.create(project, target.language, @scripts_path)
+          end
+
           created_test_target.add_dependency(created_target)
 
           scheme.add_test_target(created_test_target)
+        end
+
+        if !scheme.test_action.nil? 
+          scheme.test_action.code_coverage_enabled = true
         end
 
         scheme.save_as(project.path, target.name, true)
