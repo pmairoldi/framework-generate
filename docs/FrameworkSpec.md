@@ -39,12 +39,12 @@ end
 project.targets = [target]
 ```
 
-#### Scripts Path
+#### Scripts Directory
 
-The path to save scripts to relative to the current directory.
+The directory to save scripts to.
 
 ```ruby
-project.scripts_path = "scripts"
+project.scripts_directory = "scripts"
 ```
 
 ## Target

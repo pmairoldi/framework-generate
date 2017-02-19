@@ -2,12 +2,12 @@ require 'xcodeproj'
 
 module FrameworkGenerate
   class Project
-    attr_accessor :name, :targets, :scripts_path
+    attr_accessor :name, :targets, :scripts_directory
 
-    def initialize(name = nil, targets = nil, embed_scripts = nil)
+    def initialize(name = nil, targets = nil, scripts_directory = nil)
       @name = name
       @targets = targets
-      @scripts_path = scripts_path
+      @scripts_directory = scripts_directory
 
       yield(self) if block_given?
     end
@@ -122,7 +122,7 @@ module FrameworkGenerate
       end
 
       @targets.each do |target|
-        target.create(project, target.language, @scripts_path)
+        target.create(project, target.language, @scripts_directory)
       end
 
       @targets.each do |target|

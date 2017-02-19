@@ -72,7 +72,7 @@ rx_moya = new_target do |target|
 end
 
 project.name = "Moya"
-project.scripts_path = "scripts"
+project.scripts_directory = "scripts"
 project.targets = [
   moya,
   reactive_moya,
