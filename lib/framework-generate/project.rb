@@ -122,14 +122,13 @@ module FrameworkGenerate
       end
 
       @targets.each do |target|
+        target.create(project, target.language, @scripts_path)
+      end
 
+      @targets.each do |target|
         scheme = Xcodeproj::XCScheme.new
 
         created_target = target_with_name(project, target.name)
-        
-        if created_target.nil?
-          created_target = target.create(project, target.language, @scripts_path)
-        end
 
         scheme.add_build_target(created_target)
 
@@ -137,19 +136,15 @@ module FrameworkGenerate
           scheme.add_test_target(created_target)
         end
 
-        if target.test_target != nil
+        unless target.test_target.nil?
           created_test_target = target_with_name(project, target.test_target.name)
-
-          if created_test_target.nil?
-            created_test_target = target.test_target.create(project, target.language, @scripts_path)
-          end
 
           created_test_target.add_dependency(created_target)
 
           scheme.add_test_target(created_test_target)
         end
 
-        if !scheme.test_action.nil? 
+        unless scheme.test_action.nil?
           scheme.test_action.code_coverage_enabled = true
         end
 
