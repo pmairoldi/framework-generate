@@ -1,4 +1,7 @@
 # framework-generate
+[![Gem Version](https://badge.fury.io/rb/framework-generate.svg)](https://badge.fury.io/rb/framework-generate)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)
+
 Simple tool to help generate a [multiplatform, single-scheme Xcode project](http://promisekit.org/news/2016/08/Multiplatform-Single-Scheme-Xcode-Projects/).
 
 ## Installation
