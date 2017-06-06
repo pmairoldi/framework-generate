@@ -47,15 +47,20 @@ Please note that this project is released with a Contributor Code of Conduct. By
 
 ### How to contribute
 
-Contributing is easy. Simply make your changes to the tool and then try it out using: 
+Contributing is easy but you will need to have bundler installed. If you don't it can be installed using:
 
 ```bash
-ruby -Ilib ./bin/framework-generate
+[sudo] gem install bundler
+```
+
+When you have bundler installed, simply make your changes to the tool and then try it out using: 
+
+```bash
+bundle install
+bundle exec framework-generate
 ```
 
 Once your change is good to go open up a pull request!
-
-For more information on running executables in ruby please see the [ruby gems documentation](http://guides.rubygems.org/make-your-own-gem/#adding-an-executable).
 
 ## License
 
