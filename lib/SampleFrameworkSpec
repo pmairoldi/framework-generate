@@ -1,14 +1,12 @@
-project.name = #PROJECT_NAME#
-project.language = swift("3.0")
-project.platforms = [
+target = new_target do |target|
+  target.name = #TARGET_NAME#
+  target.language = swift("3.0")
+  target.platforms = [
     macos("10.11"),
     ios("8.0"),
     tvos("9.0"),
     watchos("2.0")
-]
-
-target = new_target do |target|
-  target.name = #TARGET_NAME#
+  ]
   target.info_plist = #TARGET_INFO_PLIST#
   target.bundle_id = #TARGET_BUNDLE_ID#
   target.include_files = [
@@ -16,6 +14,7 @@ target = new_target do |target|
   ]
 end
 
+project.name = #PROJECT_NAME#
 project.targets = [
   target
 ]
