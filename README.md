@@ -24,6 +24,39 @@ framework-generate
 
 To view the full `FrameworkSpec` documentation see the [`docs`](docs/FrameworkSpec.md) folder.
 
+## Contributing
+
+Love framework-generate but want to make it even better?
+
+Open source isn't just writing code. We could use your help with any of the
+following:
+
+- Finding (and reporting!) bugs.
+- New feature suggestions.
+- Answering questions on issues.
+- Documentation improvements.
+- Reviewing pull requests.
+- Helping to manage issue priorities.
+- Fixing bugs/new features.
+
+If any of that sounds cool to you, send a pull request! After a few
+contributions, we'll add you as an admin to the repo so you can merge pull
+requests and help build framework-generate.
+
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](CODE_OF_CONDUCT.md).
+
+### How to contribute
+
+Contributing is easy. Simply make your changes to the tool and then try it out using: 
+
+```bash
+ruby -Ilib ./bin/framework-generate
+```
+
+Once your change is good to go open up a pull request!
+
+For more information on running executables in ruby please see the [ruby gems documentation](http://guides.rubygems.org/make-your-own-gem/#adding-an-executable).
+
 ## License
 
 This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file.
