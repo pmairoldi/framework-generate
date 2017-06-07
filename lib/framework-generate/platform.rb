@@ -25,12 +25,12 @@ module FrameworkGenerate
       platforms.find { |platform| platform.type == type }
     end
 
-    def self.deployment_target(platforms, type)
-      find_platform(platforms, type).minimum_version
+    def self.deployment_target(platform)
+      platform.minimum_version
     end
 
-    def self.search_paths(platforms, type)
-      find_platform(platforms, type).search_paths
+    def self.search_paths(platform)
+      platform.search_paths
     end
 
     def raw_values

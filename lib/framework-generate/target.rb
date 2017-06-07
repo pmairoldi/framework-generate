@@ -36,14 +36,31 @@ module FrameworkGenerate
       settings['PRODUCT_BUNDLE_IDENTIFIER'] = @bundle_id
       settings['APPLICATION_EXTENSION_API_ONLY'] = @is_safe_for_extensions ? 'YES' : 'NO';
       settings['SUPPORTED_PLATFORMS'] = FrameworkGenerate::Platform::supported_platforms(@platforms)
-      settings['MACOSX_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :macos)
-      settings['IPHONEOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :ios)
-      settings['TVOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :tvos)
-      settings['WATCHOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(@platforms, :watchos)
-      settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :macos)
-      settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :ios)
-      settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :tvos)
-      settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform::search_paths(@platforms, :watchos)
+
+      macos = FrameworkGenerate::Platform::find_platform(@platforms, :macos)
+      unless macos.nil?
+        settings['MACOSX_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(macos)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform::search_paths(macos)
+      end
+
+      ios = FrameworkGenerate::Platform::find_platform(@platforms, :ios)
+      unless ios.nil?
+        settings['IPHONEOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(ios)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform::search_paths(ios)
+      end
+
+      watchos = FrameworkGenerate::Platform::find_platform(@platforms, :watchos)
+      unless watchos.nil?
+        settings['WATCHOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(watchos)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform::search_paths(watchos)
+      end
+
+      tvos = FrameworkGenerate::Platform::find_platform(@platforms, :tvos)
+      unless tvos.nil?
+        settings['TVOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(tvos)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform::search_paths(tvos)
+      end
+
       settings['SWIFT_VERSION'] = @language.version
 
       settings
@@ -165,7 +182,7 @@ module FrameworkGenerate
         xcode_path = File.join("${SRCROOT}", scripts_directory, script_file_name)
         build_phase.shell_script = " exec \"#{xcode_path}\""
       end
-      
+
       add_framework_to_copy_phase(project, build_phase)
     end
 
@@ -207,7 +224,7 @@ module FrameworkGenerate
     def add_build_scripts(target, scripts)
       return unless scripts != nil
 
-      scripts.each do |script| 
+      scripts.each do |script|
         build_phase = target.new_shell_script_build_phase(script.name)
         build_phase.shell_script = script.script
         build_phase.input_paths = script.inputs
@@ -217,11 +234,11 @@ module FrameworkGenerate
     def add_pre_build_scripts(target)
       add_build_scripts(target, @pre_build_scripts)
     end
-    
+
     def add_post_build_scripts(target)
       add_build_scripts(target, @post_build_scripts)
     end
-    
+
     def create(project, language, scripts_directory)
       name = @name
       type = @type
@@ -252,7 +269,7 @@ module FrameworkGenerate
 
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXResourcesBuildPhase)
       target.build_phases << project.new(Xcodeproj::Project::Object::PBXFrameworksBuildPhase)
-      
+
       # Post build script
       add_post_build_scripts(target)
 
