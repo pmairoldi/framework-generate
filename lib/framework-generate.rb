@@ -9,7 +9,7 @@ module FrameworkGenerate
         puts "Couldn't find FrameworkSpec. Do you want to create one? [Y/N]"
         create_file = gets.chomp
 
-        if create_file == 'Y'
+        if create_file.casecmp('Y').zero?
           sample_framework_spec = File.join(File.dirname(__FILE__), 'SampleFrameworkSpec')
 
           FileUtils.cp(sample_framework_spec, file_path)
