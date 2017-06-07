@@ -5,7 +5,7 @@ module FrameworkGenerate
     def initialize(type = nil, minimum_version = nil, search_paths = nil)
       @type = type
       @minimum_version = minimum_version
-      @search_paths = search_paths == nil ? default_search_paths : search_paths
+      @search_paths = search_paths.nil? ? default_search_paths : search_paths
 
       yield(self) if block_given?
     end
@@ -16,9 +16,9 @@ module FrameworkGenerate
 
     def self.supported_platforms(platforms, is_test_target = false)
       platforms
-          .reject { |platform| is_test_target && platform.type == :watchos }
-          .map { |platform| platform.raw_values }
-          .join(' ')
+        .reject { |platform| is_test_target && platform.type == :watchos }
+        .map(&:raw_values)
+        .join(' ')
     end
 
     def self.find_platform(platforms, type)

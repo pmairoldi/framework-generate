@@ -34,31 +34,31 @@ module FrameworkGenerate
 
       settings['INFOPLIST_FILE'] = @info_plist
       settings['PRODUCT_BUNDLE_IDENTIFIER'] = @bundle_id
-      settings['APPLICATION_EXTENSION_API_ONLY'] = @is_safe_for_extensions ? 'YES' : 'NO';
-      settings['SUPPORTED_PLATFORMS'] = FrameworkGenerate::Platform::supported_platforms(@platforms)
+      settings['APPLICATION_EXTENSION_API_ONLY'] = @is_safe_for_extensions ? 'YES' : 'NO'
+      settings['SUPPORTED_PLATFORMS'] = FrameworkGenerate::Platform.supported_platforms(@platforms)
 
-      macos = FrameworkGenerate::Platform::find_platform(@platforms, :macos)
+      macos = FrameworkGenerate::Platform.find_platform(@platforms, :macos)
       unless macos.nil?
-        settings['MACOSX_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(macos)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform::search_paths(macos)
+        settings['MACOSX_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(macos)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform.search_paths(macos)
       end
 
-      ios = FrameworkGenerate::Platform::find_platform(@platforms, :ios)
+      ios = FrameworkGenerate::Platform.find_platform(@platforms, :ios)
       unless ios.nil?
-        settings['IPHONEOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(ios)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform::search_paths(ios)
+        settings['IPHONEOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(ios)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform.search_paths(ios)
       end
 
-      watchos = FrameworkGenerate::Platform::find_platform(@platforms, :watchos)
+      watchos = FrameworkGenerate::Platform.find_platform(@platforms, :watchos)
       unless watchos.nil?
-        settings['WATCHOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(watchos)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform::search_paths(watchos)
+        settings['WATCHOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(watchos)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform.search_paths(watchos)
       end
 
-      tvos = FrameworkGenerate::Platform::find_platform(@platforms, :tvos)
+      tvos = FrameworkGenerate::Platform.find_platform(@platforms, :tvos)
       unless tvos.nil?
-        settings['TVOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform::deployment_target(tvos)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform::search_paths(tvos)
+        settings['TVOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(tvos)
+        settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform.search_paths(tvos)
       end
 
       settings['SWIFT_VERSION'] = @language.version
@@ -72,7 +72,7 @@ module FrameworkGenerate
     end
 
     def add_framework_header(project, target)
-      return unless @header != nil
+      return if @header.nil?
       header_path = @header
       header_file_group = find_group(project, header_path)
       header_file = header_file_group.new_reference(header_path)
@@ -106,13 +106,13 @@ module FrameworkGenerate
     end
 
     def add_source_files(project, target)
-      if @exclude_files == nil
-        exclude_files = []
-      else
-        exclude_files = @exclude_files.map do |files|
-          Dir[files]
-        end
-      end
+      exclude_files = if @exclude_files.nil?
+                        []
+                      else
+                        @exclude_files.map do |files|
+                          Dir[files]
+                        end
+                      end
 
       source_files = @include_files.map do |files|
         Dir[files].reject do |path|
@@ -133,15 +133,13 @@ module FrameworkGenerate
     end
 
     def append_framework_extension(framework)
-      if File.extname(framework) == '.framework'
-        return framework
-      end
+      return framework if File.extname(framework) == '.framework'
 
       "#{framework}.framework"
     end
 
     def add_dependencies(project, target)
-      return unless @dependencies != nil
+      return if @dependencies.nil?
 
       dependency_names = @dependencies.map do |dependency|
         append_framework_extension(dependency)
@@ -173,13 +171,11 @@ module FrameworkGenerate
       else
         script_path = File.join(Dir.pwd, scripts_directory, script_file_name)
         dirname = File.dirname(script_path)
-        unless File.directory?(dirname)
-          FileUtils.mkdir_p(dirname)
-        end
+        FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
 
-        FileUtils.cp(script_file_path, script_path, { :preserve => true })
+        FileUtils.cp(script_file_path, script_path, preserve: true)
 
-        xcode_path = File.join("${SRCROOT}", scripts_directory, script_file_name)
+        xcode_path = File.join('${SRCROOT}', scripts_directory, script_file_name)
         build_phase.shell_script = " exec \"#{xcode_path}\""
       end
 
@@ -187,7 +183,7 @@ module FrameworkGenerate
     end
 
     def add_framework_to_copy_phase(project, build_phase)
-      return unless @dependencies != nil
+      return if @dependencies.nil?
 
       dependency_names = @dependencies.map do |dependency|
         append_framework_extension(dependency)
@@ -203,7 +199,7 @@ module FrameworkGenerate
     end
 
     def add_resource_files(project, target)
-      return unless @resource_files != nil
+      return if @resource_files.nil?
 
       files = @resource_files.map do |files|
         Dir[files]
@@ -222,7 +218,7 @@ module FrameworkGenerate
     end
 
     def add_build_scripts(target, scripts)
-      return unless scripts != nil
+      return if scripts.nil?
 
       scripts.each do |script|
         build_phase = target.new_shell_script_build_phase(script.name)

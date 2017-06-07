@@ -9,14 +9,14 @@ module FrameworkGenerate
         puts "Couldn't find FrameworkSpec. Do you want to create one? [Y/N]"
         create_file = gets.chomp
 
-        if create_file == "Y"
+        if create_file == 'Y'
           sample_framework_spec = File.join(File.dirname(__FILE__), 'SampleFrameworkSpec')
 
           FileUtils.cp(sample_framework_spec, file_path)
 
-          abort "Created a FrameworkSpec. Update the contents of the FrameworkSpec file and rerun the command"
+          abort 'Created a FrameworkSpec. Update the contents of the FrameworkSpec file and rerun the command'
         elsif
-          abort "Cannot create a project without a FrameworkSpec"
+          abort 'Cannot create a project without a FrameworkSpec'
         end
       end
 

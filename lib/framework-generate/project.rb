@@ -22,27 +22,27 @@ module FrameworkGenerate
     end
 
     # DSL
-    def new_target(&block)
+    def new_target
       Target.new do |target|
-        block.call(target)
+        yield(target)
       end
     end
 
-    def new_platform(&block)
+    def new_platform
       Platform.new do |platform|
-        block.call(platform)
+        yield(platform)
       end
     end
 
-    def new_language(&block)
+    def new_language
       Language.new do |language|
-        block.call(language)
+        yield(language)
       end
     end
-    
-    def new_script(&block)
+
+    def new_script
       Script.new do |script|
-        block.call(script)
+        yield(script)
       end
     end
 
@@ -73,9 +73,7 @@ module FrameworkGenerate
 
     # Interface
     def project_path
-      if File.extname(@name) == '.xcodeproj'
-        return @name
-      end
+      return @name if File.extname(@name) == '.xcodeproj'
 
       "#{@name}.xcodeproj"
     end
@@ -101,12 +99,11 @@ module FrameworkGenerate
       settings
     end
 
-    def target_with_name(project, name) 
-      project.native_targets.detect { |e| e.name == name } 
+    def target_with_name(project, name)
+      project.native_targets.detect { |e| e.name == name }
     end
 
     def generate
-
       project = Xcodeproj::Project.new(project_path)
 
       schemes_dir = Xcodeproj::XCScheme.user_data_dir(project.path)
@@ -151,7 +148,6 @@ module FrameworkGenerate
         scheme.save_as(project.path, target.name, true)
         xcschememanagement['SchemeUserState']["#{target.name}.xcscheme"] = {}
         xcschememanagement['SchemeUserState']["#{target.name}.xcscheme"]['isShown'] = true
-
       end
 
       project.native_targets.each do |target|
@@ -168,6 +164,5 @@ module FrameworkGenerate
 
       puts "Successfully generated #{project_path}"
     end
-
   end
 end
