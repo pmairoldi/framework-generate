@@ -1,4 +1,4 @@
-VERSION = '1.1.0'.freeze
+VERSION = '1.1.1'.freeze
 
 Gem::Specification.new do |s|
   s.name        = 'framework-generate'
