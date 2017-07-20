@@ -28,6 +28,7 @@ moya_tests = new_target do |target|
     "RxSwift"
   ]
   target.type = :unit_test_bundle
+  target.enable_code_coverage = true
 end
 
 moya = new_target do |target|
