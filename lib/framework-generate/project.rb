@@ -135,6 +135,11 @@ module FrameworkGenerate
 
         scheme.add_build_target(created_target)
 
+        unless scheme.launch_action.nil?
+          target.add_launch_arguments(scheme.launch_action)
+          target.add_environment_variables(scheme.launch_action)
+        end
+
         if created_target.test_target_type?
           scheme.add_test_target(created_target)
         end
