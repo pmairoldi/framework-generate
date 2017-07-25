@@ -3,9 +3,9 @@ require 'fileutils'
 
 module FrameworkGenerate
   class Target
-    attr_accessor :name, :platforms, :language, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions
+    attr_accessor :name, :platforms, :language, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions, :enable_code_coverage
 
-    def initialize(name = nil, platforms = nil, language = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false)
+    def initialize(name = nil, platforms = nil, language = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false, enable_code_coverage = false)
       @name = name
       @platforms = platforms
       @language = language
@@ -21,12 +21,13 @@ module FrameworkGenerate
       @post_build_scripts = post_build_scripts
       @test_target = test_target
       @is_safe_for_extensions = is_safe_for_extensions
+      @enable_code_coverage = enable_code_coverage
 
       yield(self) if block_given?
     end
 
     def to_s
-      "Target<#{name}, #{info_plist}, #{bundle_id}, #{header}, #{include_files}, #{exclude_files}, #{dependencies}, #{type}, #{test_target}, #{is_safe_for_extensions}>"
+      "Target<#{name}, #{info_plist}, #{bundle_id}, #{header}, #{include_files}, #{exclude_files}, #{dependencies}, #{type}, #{test_target}, #{is_safe_for_extensions}, #{enable_code_coverage}>"
     end
 
     def target_build_settings(settings)

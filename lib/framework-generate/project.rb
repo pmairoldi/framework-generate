@@ -142,7 +142,7 @@ module FrameworkGenerate
         end
 
         unless scheme.test_action.nil?
-          scheme.test_action.code_coverage_enabled = true
+          scheme.test_action.code_coverage_enabled = target.enable_code_coverage
         end
 
         scheme.save_as(project.path, target.name, true)
