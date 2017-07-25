@@ -3,7 +3,6 @@ VERSION = '1.2.1'.freeze
 Gem::Specification.new do |s|
   s.name        = 'framework-generate'
   s.version     = VERSION
-  s.date        = '2016-01-02'
   s.summary     = 'Tool to generate an Xcode framework project'
   s.description = 'Simple tool to help generate a multiplatform, single-scheme Xcode project'
   s.authors     = ['Pierre-Marc Airoldi']
