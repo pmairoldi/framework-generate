@@ -229,6 +229,16 @@ target = new_target do |target|
 end
 ```
 
+#### Enable Code Coverage
+
+Set whether the target should generate code coverage data when tests are run. The default value is `false` and the possible values include: `true` and `false`.
+
+```ruby
+target = new_target do |target|
+  target.enable_code_coverage = true
+end
+```
+
 ## Platform
 
 Describes the platform constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:
