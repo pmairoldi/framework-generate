@@ -2,3 +2,4 @@
 source 'https://rubygems.org'
 
 gem 'framework-generate', path: '.'
+gem 'danger'
