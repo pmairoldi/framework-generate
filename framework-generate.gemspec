@@ -1,4 +1,4 @@
-VERSION = '1.2.1'.freeze
+VERSION = '1.3.0'.freeze
 
 Gem::Specification.new do |s|
   s.name        = 'framework-generate'
@@ -16,5 +16,5 @@ Gem::Specification.new do |s|
   s.executables   = %w(framework-generate)
   s.require_paths = %w(lib)
 
-  s.add_dependency 'xcodeproj', '>= 1.4.0', '< 2.0.0'
+  s.add_dependency 'xcodeproj', '>= 1.5.0', '< 2.0.0'
 end
