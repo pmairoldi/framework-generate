@@ -88,6 +88,12 @@ module FrameworkGenerate
       settings['CLANG_WARN_SUSPICIOUS_MOVE'] = 'YES'
       settings['ENABLE_STRICT_OBJC_MSGSEND'] = 'YES'
       settings['GCC_NO_COMMON_BLOCKS'] = 'YES'
+      settings['CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING'] = 'YES'
+      settings['CLANG_WARN_COMMA'] = 'YES'
+      settings['CLANG_WARN_NON_LITERAL_NULL_CONVERSION'] = 'YES'
+      settings['CLANG_WARN_OBJC_LITERAL_CONVERSION'] = 'YES'
+      settings['CLANG_WARN_RANGE_LOOP_ANALYSIS'] = 'YES'
+      settings['CLANG_WARN_STRICT_PROTOTYPES'] = 'YES'
 
       settings
     end

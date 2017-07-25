@@ -32,6 +32,12 @@ module FrameworkGenerate
 
     def target_build_settings(settings)
       settings.delete('CODE_SIGN_IDENTITY')
+      settings.delete('CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING')
+      settings.delete('CLANG_WARN_COMMA')
+      settings.delete('CLANG_WARN_NON_LITERAL_NULL_CONVERSION')
+      settings.delete('CLANG_WARN_OBJC_LITERAL_CONVERSION')
+      settings.delete('CLANG_WARN_RANGE_LOOP_ANALYSIS')
+      settings.delete('CLANG_WARN_STRICT_PROTOTYPES')
 
       settings['INFOPLIST_FILE'] = @info_plist
       settings['PRODUCT_BUNDLE_IDENTIFIER'] = @bundle_id
