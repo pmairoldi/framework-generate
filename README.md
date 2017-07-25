@@ -24,6 +24,10 @@ framework-generate
 
 To view the full `FrameworkSpec` documentation see the [`docs`](docs/FrameworkSpec.md) folder.
 
+### Sample FrameworkSpec Files
+
+Don't know where to start? Some FrameworkSpec files exist [here](https://github.com/petester42/framework-specs) for a couple projects. It can be a good place to start!
+
 ## Contributing
 
 Love framework-generate but want to make it even better?
