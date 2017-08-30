@@ -239,6 +239,30 @@ target = new_target do |target|
 end
 ```
 
+#### Launch Arguments
+
+An array of arguements to pass to the target when it is lauched
+
+```ruby
+target = new_target do |target|
+  target.launch_arguments = [
+    "-NSShowNonLocalizedStrings YES"
+  ]
+end
+```
+
+#### Environment Variables
+
+An array of environment variables to pass to the target when it is lauched
+
+```ruby
+target = new_target do |target|
+  target.environment_variables = [
+    "NSZombieEnabled": "YES"
+  ]
+end
+```
+
 ## Platform
 
 Describes the platform constraints the framework will target. Syntactic sugar for the platform can also be used for the platform like follows:

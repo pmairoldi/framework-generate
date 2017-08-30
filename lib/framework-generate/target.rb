@@ -3,9 +3,9 @@ require 'fileutils'
 
 module FrameworkGenerate
   class Target
-    attr_accessor :name, :platforms, :language, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions, :enable_code_coverage
+    attr_accessor :name, :platforms, :language, :info_plist, :bundle_id, :header, :include_files, :exclude_files, :resource_files, :dependencies, :type, :pre_build_scripts, :post_build_scripts, :test_target, :is_safe_for_extensions, :enable_code_coverage, :launch_arguments, :environment_variables
 
-    def initialize(name = nil, platforms = nil, language = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false, enable_code_coverage = false)
+    def initialize(name = nil, platforms = nil, language = nil, info_plist = nil, bundle_id = nil, header = nil, include_files = nil, exclude_files = nil, resource_files = nil, dependencies = nil, type = :framework, pre_build_scripts = nil, post_build_scripts = nil, test_target = nil, is_safe_for_extensions = false, enable_code_coverage = false, launch_arguments = nil, environment_variables = nil)
       @name = name
       @platforms = platforms
       @language = language
@@ -22,6 +22,8 @@ module FrameworkGenerate
       @test_target = test_target
       @is_safe_for_extensions = is_safe_for_extensions
       @enable_code_coverage = enable_code_coverage
+      @launch_arguments = launch_arguments
+      @environment_variables = environment_variables
 
       yield(self) if block_given?
     end
@@ -240,6 +242,26 @@ module FrameworkGenerate
 
     def add_post_build_scripts(target)
       add_build_scripts(target, @post_build_scripts)
+    end
+
+    def add_launch_arguments(launch_action)
+      return if @launch_arguments.nil?
+
+      command_line_arguments = @launch_arguments.map do |launch_arguement|
+        { argument: launch_arguement, enabled: true }
+      end
+
+      launch_action.command_line_arguments = Xcodeproj::XCScheme::CommandLineArguments.new(command_line_arguments)
+    end
+
+    def add_environment_variables(launch_action)
+      return if @environment_variables.nil?
+
+      environment_variables = @environment_variables.map do |key, value|
+        { key: key, value: value, enabled: true }
+      end
+
+      launch_action.environment_variables = Xcodeproj::XCScheme::EnvironmentVariables.new(environment_variables)
     end
 
     def create(project, language, scripts_directory)
