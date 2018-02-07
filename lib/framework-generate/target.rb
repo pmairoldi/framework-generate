@@ -191,6 +191,20 @@ module FrameworkGenerate
       add_framework_to_copy_phase(project, build_phase)
     end
 
+    def third_party_frameworks?(project)
+      return if @dependencies.nil?
+
+      dependency_names = @dependencies.map do |dependency|
+        append_framework_extension(dependency)
+      end
+
+      frameworks = dependency_names.reject do |name|
+        project.products.any? { |x| x.path == name }
+      end
+
+      frameworks.length > 0
+    end
+
     def add_framework_to_copy_phase(project, build_phase)
       return if @dependencies.nil?
 
@@ -305,7 +319,7 @@ module FrameworkGenerate
       add_resource_files(project, target)
 
       # Copy frameworks to test target
-      if target.test_target_type?
+      if target.test_target_type? && third_party_frameworks?(project)
         build_phase = target.new_shell_script_build_phase('Copy Carthage Frameworks')
         copy_carthage_frameworks(project, build_phase, scripts_directory)
       end
