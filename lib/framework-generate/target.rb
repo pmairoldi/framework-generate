@@ -32,7 +32,7 @@ module FrameworkGenerate
       "Target<#{name}, #{info_plist}, #{bundle_id}, #{header}, #{include_files}, #{exclude_files}, #{dependencies}, #{type}, #{test_target}, #{is_safe_for_extensions}, #{enable_code_coverage}>"
     end
 
-    def target_build_settings(settings)
+    def target_build_settings(settings, has_frameworks)
       settings.delete('CODE_SIGN_IDENTITY')
       settings.delete('CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING')
       settings.delete('CLANG_WARN_COMMA')
@@ -49,25 +49,33 @@ module FrameworkGenerate
       macos = FrameworkGenerate::Platform.find_platform(@platforms, :macos)
       unless macos.nil?
         settings['MACOSX_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(macos)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform.search_paths(macos)
+        if has_frameworks
+          settings['FRAMEWORK_SEARCH_PATHS[sdk=macosx*]'] = FrameworkGenerate::Platform.search_paths(macos)
+        end
       end
 
       ios = FrameworkGenerate::Platform.find_platform(@platforms, :ios)
       unless ios.nil?
         settings['IPHONEOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(ios)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform.search_paths(ios)
+        if has_frameworks
+          settings['FRAMEWORK_SEARCH_PATHS[sdk=iphone*]'] = FrameworkGenerate::Platform.search_paths(ios)
+        end
       end
 
       watchos = FrameworkGenerate::Platform.find_platform(@platforms, :watchos)
       unless watchos.nil?
         settings['WATCHOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(watchos)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform.search_paths(watchos)
+        if has_frameworks
+          settings['FRAMEWORK_SEARCH_PATHS[sdk=watch*]'] = FrameworkGenerate::Platform.search_paths(watchos)
+        end
       end
 
       tvos = FrameworkGenerate::Platform.find_platform(@platforms, :tvos)
       unless tvos.nil?
         settings['TVOS_DEPLOYMENT_TARGET'] = FrameworkGenerate::Platform.deployment_target(tvos)
-        settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform.search_paths(tvos)
+        if has_frameworks
+          settings['FRAMEWORK_SEARCH_PATHS[sdk=appletv*]'] = FrameworkGenerate::Platform.search_paths(tvos)
+        end
       end
 
       settings['SWIFT_VERSION'] = @language.version
@@ -290,6 +298,8 @@ module FrameworkGenerate
       target.product_type = Xcodeproj::Constants::PRODUCT_TYPE_UTI[type]
       target.build_configuration_list = Xcodeproj::Project::ProjectHelper.configuration_list(project, :osx, nil, type, language.type)
 
+      has_frameworks = third_party_frameworks?(project)
+
       # Pre build script
       add_pre_build_scripts(target)
 
@@ -297,7 +307,7 @@ module FrameworkGenerate
       add_source_files(project, target)
 
       target.build_configurations.each do |configuration|
-        target_build_settings(configuration.build_settings)
+        target_build_settings(configuration.build_settings, has_frameworks)
       end
 
       # Product
@@ -319,7 +329,7 @@ module FrameworkGenerate
       add_resource_files(project, target)
 
       # Copy frameworks to test target
-      if target.test_target_type? && third_party_frameworks?(project)
+      if target.test_target_type? && has_frameworks
         build_phase = target.new_shell_script_build_phase('Copy Carthage Frameworks')
         copy_carthage_frameworks(project, build_phase, scripts_directory)
       end
